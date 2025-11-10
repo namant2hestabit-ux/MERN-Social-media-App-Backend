@@ -12,7 +12,7 @@ const createPost = async (req, res) => {
     const newPost = new Post({
       title,
       author: req.user._id,
-      imageURL: req.file ? `http://localhost:5000/${req.file.path}` : null,
+      imageURL: req.file ? `${process.env.BACKEND_URL}/${req.file.path}` : null,
     });
 
     const savedPost = await newPost.save();

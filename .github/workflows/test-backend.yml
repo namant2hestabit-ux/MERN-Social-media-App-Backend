@@ -18,11 +18,9 @@ jobs:
           node-version: 18
 
       - name: Install Backend Dependencies
-        working-directory: backend
         run: npm install
 
-      - name: Run Backend Tests
-        working-directory: backend
+      - name: Run Backend Test
         env:
           PORT: ${{ secrets.PORT }}
           MONGO_DB_URI: ${{ secrets.MONGO_DB_URI }}
