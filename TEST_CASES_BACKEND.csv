@@ -1,0 +1,50 @@
+suite,test_name,module_or_endpoint,params_expected,status,notes,filepath
+unit/commentController,should fail if postId is missing,createComment,req.params: {} => 400,TODO,Unit test mocks,tests/unit/controllers/commentController.test.js
+unit/commentController,should fetch all comments successfully,getAllComments,req.params: {postId} => 201,TODO,Unit test mocks,tests/unit/controllers/commentController.test.js
+unit/commentController,should fail if comment missing,createComment,req.body: {} => 400,TODO,Unit test mocks,tests/unit/controllers/commentController.test.js
+unit/commentController,should return 404 if post not found,createComment,Post.findById => null => 404,TODO,Unit test mocks,tests/unit/controllers/commentController.test.js
+unit/commentController,should create comment successfully,createComment,valid post & body => 201,TODO,Unit test mocks,tests/unit/controllers/commentController.test.js
+unit/commentController,should return 404 if comment not found,deleteAnyComment,Comment.findById => null => 404,TODO,Unit test mocks,tests/unit/controllers/commentController.test.js
+unit/commentController,should delete comment successfully,deleteAnyComment,valid comment => 201,TODO,Unit test mocks,tests/unit/controllers/commentController.test.js
+unit/commentController,should return 404 if comment not found,deleteComment,Comment.findById => null => 404,TODO,Unit test mocks,tests/unit/controllers/commentController.test.js
+unit/commentController,should reject unauthorized user,deleteComment,comment.user !== loggedInUser => 400,TODO,Unit test mocks,tests/unit/controllers/commentController.test.js
+unit/commentController,should delete comment successfully,deleteComment,authorized user => 201,TODO,Unit test mocks,tests/unit/controllers/commentController.test.js
+unit/commentController,should return 404 if comment not found,updateComment,Comment.findById => null => 404,TODO,Unit test mocks,tests/unit/controllers/commentController.test.js
+unit/commentController,should reject unauthorized user,updateComment,commentData.user !== loggedInUser => 400,TODO,Unit test mocks,tests/unit/controllers/commentController.test.js
+unit/commentController,should update comment successfully,updateComment,authorized user => 201,TODO,Unit test mocks,tests/unit/controllers/commentController.test.js
+unit/userController,should fail if email or password missing,signUpUser,req.body missing => 404,TODO,Unit test mocks,tests/unit/controllers/userController.test.js
+unit/userController,should create user successfully,signUpUser,valid body => 201,TODO,Unit test mocks,tests/unit/controllers/userController.test.js
+unit/userController,should fail if user not found,loginUser,User.findOne => null => 500,TODO,Unit test mocks,tests/unit/controllers/userController.test.js
+unit/userController,should login user successfully,loginUser,valid credentials => 200 + cookies,TODO,Unit test mocks,tests/unit/controllers/userController.test.js
+unit/userController,should clear cookies and logout,logoutUser,n/a => 200,TODO,Unit test mocks,tests/unit/controllers/userController.test.js
+unit/userController,should reject disallowed fields,editProfile,invalid field in body => 400,TODO,Unit test mocks,tests/unit/controllers/userController.test.js
+unit/userController,should update allowed fields,editProfile,allowed fields => 201,TODO,Unit test mocks,tests/unit/controllers/userController.test.js
+unit/userController,should reject same passwords,editPassword,current==prev => 400,TODO,Unit test mocks,tests/unit/controllers/userController.test.js
+unit/userController,should reject if prev password mismatch,editPassword,bcrypt.compare => false => 400,TODO,Unit test mocks,tests/unit/controllers/userController.test.js
+unit/userController,should update password successfully,editPassword,valid prev => 201,TODO,Unit test mocks,tests/unit/controllers/userController.test.js
+unit/userController,should refresh successfully,refreshTokens,valid refresh cookie => 201,TODO,Unit test mocks,tests/unit/controllers/userController.test.js
+unit/userController,should fail if no token,refreshTokens,no cookie => 401,TODO,Unit test mocks,tests/unit/controllers/userController.test.js
+unit/userController,should return list of users,fetchAllUsers,n/a => 200 + users,TODO,Unit test mocks,tests/unit/controllers/userController.test.js
+unit/userController,should delete user and related data,deleteAnyUser,valid userId => 200,TODO,Unit test mocks,tests/unit/controllers/userController.test.js
+unit/userController,should fail for invalid fields,editAnyUser,invalid fields => 400,TODO,Unit test mocks,tests/unit/controllers/userController.test.js
+unit/userController,should edit user successfully,editAnyUser,valid fields => 201,TODO,Unit test mocks,tests/unit/controllers/userController.test.js
+unit/postController,should fail if title missing,createPost,req.body.title missing => 400,TODO,Unit test mocks,tests/unit/controllers/postController.test.js
+unit/postController,should create a post successfully,createPost,valid body => 201,TODO,Unit test mocks,tests/unit/controllers/postController.test.js
+unit/postController,should return paginated posts,getAllPosts,query page/limit => 201+posts,TODO,Unit test mocks,tests/unit/controllers/postController.test.js
+unit/postController,should fetch all posts of user,getUserPosts,req.user => posts,TODO,Unit test mocks,tests/unit/controllers/postController.test.js
+unit/postController,should return 404 if post not found,getPostData,Post.findById => null => 404,TODO,Unit test mocks,tests/unit/controllers/postController.test.js
+unit/postController,should fetch post successfully,getPostData,Post.findById => post => 200,TODO,Unit test mocks,tests/unit/controllers/postController.test.js
+unit/postController,should delete post and comments,deleteAnyPost,post exists => 201,TODO,Unit test mocks,tests/unit/controllers/postController.test.js
+unit/postController,should handle post not found,deleteAnyPost,postNull => 404,TODO,Unit test mocks,tests/unit/controllers/postController.test.js
+unit/postController,should delete only user’s own post,deletePost,post.author==user => 200,TODO,Unit test mocks,tests/unit/controllers/postController.test.js
+unit/postController,should block if trying to delete others' post,deletePost,post.author!=user => 403,TODO,Unit test mocks,tests/unit/controllers/postController.test.js
+unit/postController,should return 404 if not found,updatePost,Post.findById=>null=>404,TODO,Unit test mocks,tests/unit/controllers/postController.test.js
+unit/postController,should update post if authorized,updatePost,authorized user => 201,TODO,Unit test mocks,tests/unit/controllers/postController.test.js
+unit/postController,should reject unauthorized user,updatePost,unauthorized => 403,TODO,Unit test mocks,tests/unit/controllers/postController.test.js
+integration/userRoutes,should sign up a user,POST /api/signup,body: firstName,lastName,email,password => 201,PASS,tests/integration/userRoutes.test.js
+integration/userRoutes,should log in a user and set cookies,POST /api/login,body: email,password => 200 + cookies,PASS,tests/integration/userRoutes.test.js
+integration/postRoutes,should create a post when authenticated,POST /api/create-post,cookie token + body title => 201,PASS,tests/integration/postRoutes.test.js
+integration/postRoutes,should fail creating post when not authenticated,POST /api/create-post,missing cookie => 401,PASS,tests/integration/postRoutes.test.js
+integration/commentRoutes,should create a comment when authenticated and post exists,POST /api/comment/:postId,cookie token + body comment => 201,PASS,tests/integration/commentRoutes.test.js
+integration/commentRoutes,should return 404 when commenting on non-existent post,POST /api/comment/:postId,invalid postId => 404,PASS,tests/integration/commentRoutes.test.js
+integration/messageRoutes,should post and fetch messages for user,POST /api/message + GET /api/message/:user2,body {receiver,text} => 200 + messages,PASS,tests/integration/messageRoutes.test.js
