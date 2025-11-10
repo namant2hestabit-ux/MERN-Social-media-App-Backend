@@ -11,8 +11,9 @@ const server = createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: process.env.FRONTEND_ORIGIN,
+    origin: process.env.FRONTEND_ORIGIN || 'https://mern-social-media-app-frontend.vercel.app',
     credentials: true,
+    methods: ['GET', 'POST'],
   },
 });
 

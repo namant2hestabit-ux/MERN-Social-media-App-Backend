@@ -19,7 +19,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(
   cors({
-    origin: process.env.FRONTEND_ORIGIN,
+    origin: process.env.FRONTEND_ORIGIN || 'https://mern-social-media-app-frontend.vercel.app',
     credentials: true,
   })
 );
