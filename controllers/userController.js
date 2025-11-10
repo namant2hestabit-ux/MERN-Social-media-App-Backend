@@ -100,7 +100,7 @@ const loginUser = async (req, res) => {
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       sameSite: "none",
-      secure: false,
+      secure: process.env.NODE_ENV === "production",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
@@ -120,11 +120,13 @@ const logoutUser = async (req, res) => {
   try {
     res.cookie("token", null, {
       httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
       sameSite: "none",
       maxAge: 0,
     });
     res.cookie("refreshToken", null, {
       httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
       sameSite: "none",
       maxAge: 0,
     });
@@ -258,7 +260,7 @@ const refreshTokens = async (req, res) => {
     res.cookie("token", newAccessToken, {
       httpOnly: true,
       sameSite: "none",
-      secure: false,
+      secure: process.env.NODE_ENV === "production",
       maxAge: 15 * 60 * 1000,
     });
 
@@ -331,7 +333,7 @@ const googleLogin = async (req, res) => {
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       sameSite: "none",
-      secure: false,
+      secure: process.env.NODE_ENV === "production",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
