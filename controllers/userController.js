@@ -93,13 +93,13 @@ const loginUser = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "PRODUCTION",
-      sameSite: "strict",
+      sameSite: "none",
       maxAge: 3600000, // 1 hour in milliseconds
     });
 
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
-      sameSite: "strict",
+      sameSite: "none",
       secure: false,
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
@@ -120,12 +120,12 @@ const logoutUser = async (req, res) => {
   try {
     res.cookie("token", null, {
       httpOnly: true,
-      sameSite: "strict",
+      sameSite: "none",
       maxAge: 0,
     });
     res.cookie("refreshToken", null, {
       httpOnly: true,
-      sameSite: "strict",
+      sameSite: "none",
       maxAge: 0,
     });
     return res.status(200).json({
@@ -257,7 +257,7 @@ const refreshTokens = async (req, res) => {
 
     res.cookie("token", newAccessToken, {
       httpOnly: true,
-      sameSite: "strict",
+      sameSite: "none",
       secure: false,
       maxAge: 15 * 60 * 1000,
     });
@@ -323,14 +323,14 @@ const googleLogin = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "PRODUCTION",
-      sameSite: "strict",
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "none",
       maxAge: 3600000, // 1 hour in milliseconds
     });
 
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
-      sameSite: "strict",
+      sameSite: "none",
       secure: false,
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
