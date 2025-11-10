@@ -95,7 +95,7 @@ describe("User Controller", () => {
       User.findOne.mockResolvedValue(null);
 
       await loginUser(req, res);
-      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.status).toHaveBeenCalledWith(401);
     });
 
     it("should login user successfully", async () => {
