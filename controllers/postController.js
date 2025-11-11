@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Comment = require("../models/commentSchema");
 const Post = require("../models/postSchema");
+const imagekit = require("../config/imageKit");
 
 const createPost = async (req, res) => {
   try {
@@ -9,10 +10,23 @@ const createPost = async (req, res) => {
     if (!title)
       return res.status(400).json({ message: "Post Title is required" });
 
+
+    let imageURL = null;
+
+    if (req.file) {
+      const uploadedImage = await imagekit.upload({
+        file: req.file.buffer.toString("base64"),  // file as base64 string
+        fileName: req.file.originalname,           // original file name
+        folder: "/posts",                          // optional folder
+      });
+
+      imageURL = uploadedImage.url;   // returns CDN URL
+    }
+
     const newPost = new Post({
       title,
       author: req.user._id,
-      imageURL: req.file ? `${process.env.BACKEND_URL}/${req.file.path}` : null,
+      imageURL,
     });
 
     const savedPost = await newPost.save();
